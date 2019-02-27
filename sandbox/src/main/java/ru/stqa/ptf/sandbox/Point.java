@@ -13,17 +13,6 @@ public class Point {
 
     }
 
-    public double distance(Point end) {
-        double a = Math.abs(this.x - end.x);
-        double b = Math.abs(this.y - end.y);
-        double c = Math.pow(a, 2) + Math.pow(b, 2);
-        return Math.sqrt(c);
-    }
-
-    public double distance(double x, double y) {
-        Point end = new Point(x, y);
-        return distance(end);
-    }
 
     public double getX() {
         return x;
