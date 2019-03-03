@@ -6,10 +6,10 @@ import org.testng.annotations.Test;
 public class PointTests {
     @Test
     public void testLine() {
-        Point a = new Point(10, 22);
-        Point b = new Point(0, 22);
-        double actual = Launcher.distance(a, b);
-        double expected = 10;
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(3, 4);
+        double actual = Launcher.distance(p1, p2);
+        double expected = 5;
         Assert.assertEquals(actual, expected);
     }
 
