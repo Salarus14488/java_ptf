@@ -16,6 +16,7 @@ public class Point {
         py = py * py;
         return Math.sqrt(px + py);
     }
+
 }
 
 
