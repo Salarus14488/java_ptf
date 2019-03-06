@@ -32,7 +32,7 @@ public class AddNewContactTests {
 
         getAddNewContact();
         fillContactForm(
-                new GroupContactData("Damir", "Maratovich", "Yusupov", "Salarus", "Gaz", "Bank", "Cowwall 5", "4992055756", "9670693352", "gazbank@mail.ru", "7", "January", "1993"));
+                new ContactData("Damir", "Maratovich", "Yusupov", "Salarus", "Gaz", "Bank", "Cowwall 5", "4992055756", "9670693352", "gazbank@mail.ru", "7", "January", "1993"));
         saveContact();
     }
 
@@ -40,7 +40,7 @@ public class AddNewContactTests {
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).click();
     }
 
-    private void fillContactForm(GroupContactData groupContact) {
+    private void fillContactForm(ContactData groupContact) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(groupContact.getFirstname());
