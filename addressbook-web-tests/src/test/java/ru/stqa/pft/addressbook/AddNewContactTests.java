@@ -91,7 +91,7 @@ public class AddNewContactTests {
         wd.quit();
     }
 
-    private boolean isElementPresent(By by) {
+    public boolean isElementPresent(By by) {
         try {
             wd.findElement(by);
             return true;
