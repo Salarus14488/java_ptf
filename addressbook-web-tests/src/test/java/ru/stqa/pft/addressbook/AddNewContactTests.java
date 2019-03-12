@@ -24,7 +24,7 @@ public class AddNewContactTests {
         wd.findElement(By.name("user")).sendKeys(username);
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys(password);
-        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).click();
+        wd.findElement(By.xpath("//input[@value='Login']")).click();
     }
 
     @Test
@@ -37,7 +37,7 @@ public class AddNewContactTests {
     }
 
     private void saveContact() {
-        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).click();
+        wd.findElement(By.xpath("//input[@name='submit']")).click();
     }
 
     private void fillContactForm(ContactData groupContact) {
@@ -91,7 +91,7 @@ public class AddNewContactTests {
         wd.quit();
     }
 
-    public boolean isElementPresent(By by) {
+    private boolean isElementPresent(By by) {
         try {
             wd.findElement(by);
             return true;
