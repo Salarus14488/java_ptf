@@ -8,10 +8,15 @@ public class NavigationHelper extends HelperBase {
         super(wd);
     }
 
-    public void gotoGroupPage() {
+    public void goToGroupPage() {
         click(By.linkText("groups"));
     }
     public void goToNewContactPage() {
         click(By.linkText("add new"));
     }
+
+    public void goToContactModification() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
 }
+

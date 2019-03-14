@@ -26,6 +26,19 @@ public class ContactData {
         this.email = email;
     }
 
+    public ContactData(String firstname, String middlename, String lastname) {
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.nickname = "";
+        this.title = "";
+        this.company = "";
+        this.address = "";
+        this.homeNumber = "";
+        this.mobileNumber = "";
+        this.email = "";
+    }
+
     public String getFirstname() {
         return firstname;
     }

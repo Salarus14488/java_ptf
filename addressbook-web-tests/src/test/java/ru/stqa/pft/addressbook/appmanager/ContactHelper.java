@@ -9,7 +9,7 @@ public class ContactHelper extends HelperBase {
     public ContactHelper (FirefoxDriver wd) {
         super(wd);
     }
-    public void fillContactForm(ContactData groupContact) {
+    public void fillContactFormAll(ContactData groupContact) {
         type(By.name("firstname"), groupContact.getFirstname());
         type(By.name("middlename"), groupContact.getMiddlename());
         type(By.name("lastname"), groupContact.getLastname());
@@ -21,7 +21,24 @@ public class ContactHelper extends HelperBase {
         type(By.name("mobile"), groupContact.getMobileNumber());
         type(By.name("email"), groupContact.getEmail());
     }
+    public void fillContactForm3 (ContactData groupContact) {
+        type(By.name("firstname"), groupContact.getFirstname());
+        type(By.name("middlename"), groupContact.getMiddlename());
+        type(By.name("lastname"), groupContact.getLastname());
+    }
+    public void updateContact() {
+        click(By.name("update"));
+    }
     public void saveContact() {
         click(By.xpath("//input[@name='submit']"));
+    }
+    public void SelectFirstContact() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
+    }
+    public void DeleteSelectedContact() {
+        click(By.xpath("//input[@value='Delete']"));
+    }
+    public void AcceptDelition() {
+        acceptAllert();
     }
 }
