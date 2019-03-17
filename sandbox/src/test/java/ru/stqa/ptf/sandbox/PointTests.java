@@ -31,5 +31,7 @@ public class PointTests {
         double expected = 39.49480978559082;
         Assert.assertEquals(actual, expected);
     }
+
+
 }
 
