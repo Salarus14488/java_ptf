@@ -4,6 +4,7 @@ public class ContactData {
     private final String firstname;
     private final String middlename;
     private final String lastname;
+    private final String group;
     private final String nickname;
     private final String title;
     private final String company;
@@ -13,10 +14,11 @@ public class ContactData {
     private final String email;
 
 
-    public ContactData(String firstname, String middlename, String lastname, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String email) {
+    public ContactData(String firstname, String middlename, String lastname, String group, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String email) {
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
+        this.group = group;
         this.nickname = nickname;
         this.title = title;
         this.company = company;
@@ -26,10 +28,11 @@ public class ContactData {
         this.email = email;
     }
 
-    public ContactData(String firstname, String middlename, String lastname) {
+    public ContactData(String firstname, String middlename, String lastname, String group) {
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
+        this.group = group;
         this.nickname = "";
         this.title = "";
         this.company = "";
@@ -54,6 +57,8 @@ public class ContactData {
     public String getNickname() {
         return nickname;
     }
+    public String getGroup() {
+        return group; }
 
     public String getTitle() {
         return title;
