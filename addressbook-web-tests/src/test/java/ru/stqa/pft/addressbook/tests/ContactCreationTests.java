@@ -12,7 +12,6 @@ public class ContactCreationTests extends TestBase {
         app.getContactHelper().createContact(new ContactData("Peper", "Maratovich", "Yusupov", "test1", "Salarus",
                 "Gaz", "Bank", "Cowwall 5", "4992055756", "9670693352",
                 "gazbank@mail.ru"), true);
-        app.getNavigationHelper().goToNewContactPage();
         app.getNavigationHelper().goToHomePage();
     }
 }
