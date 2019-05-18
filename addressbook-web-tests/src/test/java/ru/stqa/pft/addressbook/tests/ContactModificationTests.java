@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testContactModification() {
         if (!app.getContactHelper().isThereAModificationButton()) {
-            app.getNavigationHelper().goToNewContactPage();
+            app.goTo().goToNewContactPage();
             app.getContactHelper().createContact(new ContactData("Peper", "Maratovich", "Yusupov", "test1"), true);
         }
         List<ContactData> before = app.getContactHelper().getContactList();
@@ -20,7 +20,7 @@ public class ContactModificationTests extends TestBase {
         app.getContactHelper().goToContactModification(0);
         app.getContactHelper().fillContactForm3(contact, false);
         app.getContactHelper().updateContact();
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(before.size(), after.size());
 

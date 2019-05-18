@@ -10,12 +10,12 @@ import java.util.List;
 public class ContactCreationTests extends TestBase {
 
 
-    @Test
+    @Test(enabled = false)
     public void testAddNewContact() {
 
         List<ContactData> before = app.getContactHelper().getContactList();
         System.out.println(before);
-        app.getNavigationHelper().goToNewContactPage();
+        app.goTo().goToNewContactPage();
         ContactData contact = new ContactData("Peper", "Black", "Mort", "test1");
         app.getContactHelper().createContact((contact), true);
         List<ContactData> after = app.getContactHelper().getContactList();
@@ -29,6 +29,6 @@ public class ContactCreationTests extends TestBase {
         System.out.println(before);
         Assert.assertEquals(before, after);
 
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
     }
 }

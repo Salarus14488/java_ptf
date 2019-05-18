@@ -8,10 +8,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ContactDelitionTests extends TestBase {
-    @Test
+    @Test(enabled = false)
     public void testContactDelition() {
         if (!app.getContactHelper().isThereAContact()) {
-            app.getNavigationHelper().goToNewContactPage();
+            app.goTo().goToNewContactPage();
             app.getContactHelper().createContact(new ContactData("Pepper", "Black", "Man", "Test1"),
                     true);
         }
@@ -30,6 +30,6 @@ public class ContactDelitionTests extends TestBase {
         System.out.println(before);
         Assert.assertEquals(before, after);
 
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
     }
 }
