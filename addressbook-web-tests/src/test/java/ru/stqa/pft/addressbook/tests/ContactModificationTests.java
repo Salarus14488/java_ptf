@@ -1,36 +1,41 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
+import org.hamcrest.CoreMatchers;
+
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.List;
+
+import java.util.UUID;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
-    @Test(enabled = false)
+    @Test
     public void testContactModification() {
-        if (!app.getContactHelper().isThereAModificationButton()) {
+        if (app.contact().all().size() == 0) {
             app.goTo().goToNewContactPage();
-            app.getContactHelper().createContact(new ContactData("Peper", "Maratovich", "Yusupov", "test1"), true);
+            app.contact().create(new ContactData()
+                                .withFirstName("Beta")
+                                .withLastName("Serk")
+                                .withMiddleName("Dad")
+                                .withGroup("test1"),
+                        true);
         }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        ContactData contact = new ContactData(before.get(0).getId(), "Murat", "Ignatovich", "Yusupov");
-        app.getContactHelper().goToContactModification(0);
-        app.getContactHelper().fillContactForm3(contact, false);
-        app.getContactHelper().updateContact();
+        Contacts before = app.contact().all();
+        ContactData modifiedContact = before.iterator().next();
+        ContactData contact = new ContactData()
+                .withId(modifiedContact.getId())
+                .withFirstName(UUID.randomUUID().toString().substring(0, 4))
+                .withLastName(UUID.randomUUID().toString().substring(0, 4))
+                .withLastName(UUID.randomUUID().toString().substring(0, 4));
+        app.contact().modify(contact);
         app.goTo().goToHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(before.size(), after.size());
-
-        before.remove(0);
-        before.add(contact);
-        Comparator<? super ContactData> byLastName = (g1, g2) -> (g1.getLastName() + g1.getFirstName()).compareTo(g2.getLastName() + g2.getFirstName());
-        before.sort(byLastName);
-        after.sort(byLastName);
-        System.out.println(after);
-        System.out.println(before);
-        Assert.assertEquals(after, before);
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), before.size());
+        assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 }

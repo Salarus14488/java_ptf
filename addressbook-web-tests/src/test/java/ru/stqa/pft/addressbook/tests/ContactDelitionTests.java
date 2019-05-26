@@ -1,35 +1,34 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
+import org.hamcrest.CoreMatchers;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.List;
+
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactDelitionTests extends TestBase {
     @Test(enabled = false)
     public void testContactDelition() {
-        if (!app.getContactHelper().isThereAContact()) {
+        if (app.contact().all().size() == 0) {
             app.goTo().goToNewContactPage();
-            app.getContactHelper().createContact(new ContactData("Pepper", "Black", "Man", "Test1"),
+            app.contact().create(new ContactData()
+                    .withFirstName("Beta")
+                    .withLastName("Serk")
+                    .withMiddleName("Dad")
+                    .withGroup("test1"),
                     true);
         }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().SelectFirstContact();
-        app.getContactHelper().DeleteSelectedContact();
-        app.getContactHelper().AcceptDelition();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() - 1);
+        Contacts before = app.contact().all();
+        ContactData deletedContact = before.iterator().next();
+        app.contact().delete(deletedContact);
+        Contacts after = app.contact().all();
+        assertEquals(after.size(),before.size() - 1);
 
-        before.remove(0);
-        Comparator<? super ContactData> byLastName = (g1, g2) -> (g1.getLastName() + g1.getFirstName()).compareTo(g2.getLastName() + g2.getFirstName());
-        before.sort(byLastName);
-        after.sort(byLastName);
-        System.out.println(after);
-        System.out.println(before);
-        Assert.assertEquals(before, after);
-
+        assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
         app.goTo().goToHomePage();
     }
 }
