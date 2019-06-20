@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class ContactDelitionTests extends TestBase {
-    @Test(enabled = false)
+    @Test
     public void testContactDelition() {
         if (app.contact().all().size() == 0) {
             app.goTo().goToNewContactPage();
