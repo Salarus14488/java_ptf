@@ -122,6 +122,7 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         DeleteSelectedContact();
         AcceptDelition();
+        click(By.linkText("home"));
     }
 
     public void modify(ContactData contact) {
