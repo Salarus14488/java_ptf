@@ -21,8 +21,7 @@ public class ContactModificationTests extends TestBase {
             app.contact().create(new ContactData()
                                 .withFirstName("Beta")
                                 .withLastName("Serk")
-                                .withMiddleName("Dad")
-                                .withGroup("test1"),
+                                .withMiddleName("Dad"),
                         true);
         }
         Contacts before = app.db().contacts();

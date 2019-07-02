@@ -11,7 +11,10 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.tests.GroupCreationTests;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DbHelper {
 
@@ -43,7 +46,6 @@ public class DbHelper {
     }
 
     public Contacts contacts() {
-
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List <ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
@@ -52,6 +54,24 @@ public class DbHelper {
         }
         session.getTransaction().commit();
         session.close();
+        result.sort(Comparator.comparingInt(ContactData::getId));
         return new Contacts(result);
+    }
+
+    public Contacts contacts(String groupName) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List <ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
+        List<ContactData> resultByGroup = result.stream().filter(contactData -> {
+            Groups groups = contactData.getGroups();
+            return groups.stream().anyMatch(groupData -> groupData.getName().equals(groupName));
+        }).collect(Collectors.toList());
+        for (ContactData contact : result) {
+            System.out.println(contact);
+        }
+        session.getTransaction().commit();
+        session.close();
+        resultByGroup.sort(Comparator.comparingInt(ContactData::getId));
+        return new Contacts(resultByGroup);
     }
 }

@@ -10,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,16 +40,16 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testAddNewContact(ContactData contact) {
-
+        Groups groups = app.db().groups();
         Contacts before = app.db().contacts();
         app.goTo().goToNewContactPage();
-//        File photo = new File("src/test/resources/stru.png");
-//        ContactData contact = new ContactData().withFirstName("Demir").withLastName("Dallas").withMiddleName("Test").withGroup("test1")
-//                .withPhoto(photo);
-        app.getContactHelper().create((contact), true);
+        File photo = new File("src/test/resources/stru.png");
+        ContactData newContact = new ContactData().withFirstName("Demir").withLastName("Dallas").withMiddleName("Test").withPhoto(photo)
+                .inGroup(groups.iterator().next());
+        app.getContactHelper().create((newContact), true);
         Contacts after = app.db().contacts();
         assertThat(after.size(),equalTo(before.size() + 1));
-        assertThat(after, equalTo( before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        assertThat(after, equalTo( before.withAdded(newContact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
 
         app.goTo().goToHomePage();
     }
