@@ -8,6 +8,8 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.io.File;
+
 public class AddContactToGroup extends TestBase {
 
 
@@ -19,7 +21,20 @@ public class AddContactToGroup extends TestBase {
             app.goTo().goToHomePage();
         }
         app.goTo().goToHomePage();
+
+        Contacts contacts = app.db().contacts();
+        ContactData contact = contacts.stream()
+                .filter(contactData -> contactData.getGroups().isEmpty())
+                .findFirst().orElse(null);
+        if (contact == null) {
+            app.goTo().goToNewContactPage();
+            File photo = new File("src/test/resources/stru.png");
+            ContactData newContact = new ContactData().withFirstName("Demir").withLastName("Dallas").withMiddleName("Test").withPhoto(photo);
+            app.getContactHelper().create((newContact), true);
+        }
+        app.goTo().goToHomePage();
     }
+
 
     @Test
     public void testAddContactToGroup() {
