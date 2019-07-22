@@ -71,10 +71,12 @@ public class ContactRemoveFromGroupTest extends TestBase {
                 .orElseThrow(() -> new AssertionError("Список групп пуст"));
         app.getContactHelper().selectGroupByName(groupName);
         Contacts contacts = app.db().contacts(groupName);
-        app.getContactHelper().selectContactById(contacts.iterator().next().getId());
+        ContactData contact = contacts.iterator().next();
+        app.getContactHelper().selectContactById(contact.getId());
         app.getContactHelper().removeContactFromGroup();
         app.goTo().goToHomePage();
         app.getContactHelper().selectGroupByName(groupName);
         Assert.assertEquals(app.db().contacts(groupName).size(), contacts.size() - 1);
+        Assert.assertFalse(app.db().contacts(groupName).stream().anyMatch(contactData -> contactData.getId() == contact.getId()));
     }
 }
