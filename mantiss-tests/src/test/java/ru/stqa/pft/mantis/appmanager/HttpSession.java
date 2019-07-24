@@ -52,4 +52,6 @@ public class HttpSession {
         String body = geTextFrom(response);
         return body.contains(String.format("<span class=\"italic\">%s</span>", username));
     }
+
+
 }

@@ -1,5 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import com.sun.mail.pop3.POP3Message;
 import org.apache.commons.net.telnet.TelnetClient;
 import ru.stqa.pft.mantis.model.MailMessage;
 
@@ -52,7 +53,7 @@ public class JamesHelper {
         closeTelnetSession();
     }
 
-    private void initTelnetSession() {
+    public void initTelnetSession() {
         mailserver = app.getProperty("mailserver.host");
         int port = Integer.parseInt(app.getProperty("mailserver.port"));
         String login = app.getProperty("mailserver.adminlogin");
@@ -115,7 +116,7 @@ public class JamesHelper {
         }
     }
 
-    private void closeTelnetSession() {
+    public void closeTelnetSession() {
         write("quit");
     }
 
@@ -165,7 +166,7 @@ public class JamesHelper {
 
     public static MailMessage toModelMail(Message m) {
         try {
-            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
+            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent(), m.getSentDate());
         } catch (MessagingException e) {
             e.printStackTrace();
             return null;

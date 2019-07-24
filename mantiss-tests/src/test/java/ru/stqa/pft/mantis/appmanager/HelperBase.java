@@ -42,6 +42,10 @@ public class HelperBase {
         return false;
         }
     }
+
+    public void openUrl(String link) {
+        wd.get(link);
+    }
 }
 
 
