@@ -19,6 +19,10 @@ dependencies {
     compile("ch.qos.logback:logback-classic:1.2.3")
 }
 
+test {
+    useTestNG()
+}
+
 task testGroups(type: Test) {
     useTestNG {
         suites 'src/test/resources/testng-groups.xml'
@@ -33,6 +37,11 @@ task testGroups(type: Test) {
         systemProperty 'verifyUI', "${verifyUI}"
     }
 }
+
+testGroups.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
+}
+
 task testContacts(type: Test) {
     useTestNG {
         suites 'src/test/resources/testng-contacts.xml'
@@ -46,4 +55,12 @@ task testContacts(type: Test) {
     if (project.hasProperty('verifyUI')) {
         systemProperty 'verifyUI', "${verifyUI}"
     }
+
+}
+
+task rf(type: JavaExec) {
+    main = 'org.robotframework.RobotFramework'
+    classpath = sourceSets.test.runtimeClasspath
+    args '--outputdir', 'build/rf-report'
+    args 'src/test/resources/rf'
 }
