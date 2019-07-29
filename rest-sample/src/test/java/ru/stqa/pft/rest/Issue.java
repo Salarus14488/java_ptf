@@ -7,6 +7,7 @@ public class Issue {
     private int id;
     private String subject;
     private String description;
+    private String state_name;
 
     public int getId() {
         return id;
@@ -24,6 +25,15 @@ public class Issue {
     public Issue withSubject(String subject) {
         this.subject = subject;
         return this;
+    }
+
+    public Issue withStateName(String stateName) {
+        this.state_name = stateName;
+        return this;
+    }
+
+    public String getStateName() {
+        return state_name;
     }
 
     @Override

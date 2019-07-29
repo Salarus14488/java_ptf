@@ -46,6 +46,7 @@ public class ApplicationManager {
         } else if (browser.equals(BrowserType.IE)) {
             dc = DesiredCapabilities.internetExplorer();
         }
+
         wd = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), dc);
         wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));
