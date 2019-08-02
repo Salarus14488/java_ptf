@@ -17,7 +17,16 @@ import static java.util.Optional.ofNullable;
 
 public class TestBase {
     private boolean isIssueOpen(int issueId) throws IOException {
-        return getIssues().stream().anyMatch(issue -> issue.getStateName().equals("Open") && issue.getId() == issueId);
+        return getIssue(issueId).getStateName().equals("Open");
+    }
+
+    public Issue getIssue(int issueId) throws IOException {
+        String json = getExecutor().execute(Request.Get("http://bugify.stqa.ru/api/issues/" + issueId + ".json"))
+                .returnContent().asString();
+        JsonElement parsed = new JsonParser().parse(json);
+        JsonElement issue = parsed.getAsJsonObject().get("issues");
+        Set<Issue> results = (Set<Issue>) ofNullable(new Gson().fromJson(issue, new TypeToken<Set<Issue>>(){}.getType())).orElse(new HashSet<>());
+        return results.iterator().next();
     }
 
     protected Set<Issue> getIssues() throws IOException {

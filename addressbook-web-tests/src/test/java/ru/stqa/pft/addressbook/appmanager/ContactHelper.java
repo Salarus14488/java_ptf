@@ -87,7 +87,6 @@ public class ContactHelper extends HelperBase {
         List<WebElement> rows = wd.findElements(By.xpath("//tr[@name = 'entry']"));
         for (WebElement element : rows) {
             List<WebElement> cells = element.findElements(By.xpath("./td"));
-//            String[] cells = element.getText().split(" ");
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
             String postAddress = cells.get(3).getText();
@@ -103,21 +102,11 @@ public class ContactHelper extends HelperBase {
 
     }
 
-//    public void goToContactModification(int editId) {
-//        List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
-//        for (WebElement element : elements) {
-//            int id = Integer.parseInt(element.findElement(By.xpath(".//td[input[@type = 'checkbox']]"))
-//                    .findElement(By.tagName("input")).getAttribute("value"));
-//            if (id == editId) {
-//                element.findElement(By.xpath(".//img[@alt='Edit']")).click();
-//                break;
-//            }
-//        }
-//    }
     public void goToContactModification(int index) {
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
         elements.get(index).findElement(By.xpath(".//img[@alt='Edit']")).click();
     }
+
     public void goToContactModificationById(int id) {
         WebElement raw = wd.findElement(By.xpath("//tr[td[input[@value='" + id + "']]]"));
         raw.findElement(By.xpath(".//img[@alt='Edit']")).click();

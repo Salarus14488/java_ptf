@@ -47,7 +47,12 @@ public class ApplicationManager {
             dc = DesiredCapabilities.internetExplorer();
         }
 
-        wd = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), dc);
+        if (browser.equals(BrowserType.FIREFOX)) {
+            wd = new FirefoxDriver();
+        } else if (browser.equals(BrowserType.IE)) {
+            wd = new InternetExplorerDriver();
+        }
+
         wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));
         groupHelper = new GroupHelper(wd);
